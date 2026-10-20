@@ -1,0 +1,640 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#26091f">
+    <title>For My Gugu ❤️</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            padding: 28px 14px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Georgia, serif;
+            color: white;
+            background:
+                radial-gradient(ellipse at top, #752044 0%, transparent 55%),
+                linear-gradient(135deg, #190013, #42102f, #180c2d);
+            overflow-x: hidden;
+        }
+
+        .card {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 470px;
+            padding: 30px 22px;
+            text-align: center;
+            border: 1px solid #ffffff30;
+            border-radius: 26px;
+            background: #ffffff0e;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 0 45px #ff4d8d20;
+            animation: appear 0.9s ease;
+        }
+
+        .small {
+            color: #ffc2d9;
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            margin: 12px 0;
+            font-size: clamp(32px, 8vw, 43px);
+        }
+
+        h2 {
+            color: #ffc2d9;
+            line-height: 1.4;
+        }
+
+        .main-heart {
+            display: inline-block;
+            margin: 17px 0;
+            font-size: 70px;
+            filter: drop-shadow(0 0 14px #ff659e);
+            animation: heartbeat 1.25s infinite;
+        }
+
+        .date {
+            color: #ffd0e1;
+            margin: 18px 0;
+            font-size: 16px;
+        }
+
+        .message {
+            color: #ffedf4;
+            line-height: 1.9;
+            font-size: 15px;
+        }
+
+        .hint {
+            padding: 16px;
+            margin: 22px 0;
+            border: 1px solid #ff9fc855;
+            border-radius: 16px;
+            background: #ffffff09;
+            line-height: 1.8;
+        }
+
+        .hint strong {
+            display: block;
+            margin-bottom: 6px;
+            color: #ffb7d1;
+        }
+
+        label {
+            display: block;
+            color: #ffd0e1;
+            font-size: 14px;
+        }
+
+        input {
+            display: block;
+            width: 100%;
+            margin-top: 10px;
+            padding: 15px 10px;
+            border: 1px solid #ff9fc8;
+            border-radius: 12px;
+            outline: none;
+            background: #ffffff12;
+            color: white;
+            font-size: 22px;
+            text-align: center;
+            letter-spacing: 6px;
+        }
+
+        input:focus {
+            border-color: #ffffff;
+            box-shadow: 0 0 12px #ff8db555;
+        }
+
+        input::placeholder {
+            color: #d8afc2;
+            font-size: 13px;
+            letter-spacing: 2px;
+        }
+
+        button {
+            font-family: inherit;
+            cursor: pointer;
+        }
+
+        .primary-button {
+            width: 100%;
+            margin-top: 14px;
+            padding: 14px 18px;
+            border: none;
+            border-radius: 30px;
+            background: #ff91b8;
+            color: #430b29;
+            font-size: 15px;
+            font-weight: bold;
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        .primary-button:hover {
+            background: #ffc2d9;
+            transform: translateY(-2px);
+        }
+
+        button:focus-visible {
+            outline: 2px solid white;
+            outline-offset: 4px;
+        }
+
+        #feedback {
+            min-height: 24px;
+            margin: 12px 0 0;
+            color: #ffd0e1;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Envelope */
+
+        #envelopeSection {
+            margin-top: 24px;
+            animation: appear 0.8s ease;
+        }
+
+        .envelope-button {
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            margin: 24px auto 8px;
+            padding: 15px;
+            border: none;
+            border-radius: 18px;
+            background: transparent;
+            color: white;
+        }
+
+        .envelope-button:hover .envelope {
+            transform: translateY(-5px);
+        }
+
+        .envelope {
+            position: relative;
+            width: min(230px, 100%);
+            height: 150px;
+            margin: 25px auto 15px;
+            border-radius: 5px;
+            background: #ffd6e5;
+            box-shadow: 0 12px 30px #00000040;
+            transition: transform 0.3s ease;
+        }
+
+        /* Front pocket of the envelope */
+        .envelope::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: 3;
+            border-radius: 5px;
+            background: #f3a4c2;
+            clip-path: polygon(0 0, 50% 57%, 100% 0, 100% 100%, 0 100%);
+        }
+
+        /* Back flap */
+        .envelope-flap {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            background: #ffb8d0;
+            clip-path: polygon(0 0, 100% 0, 50% 60%);
+            transform-origin: top center;
+            transition: transform 0.75s ease;
+        }
+
+        .envelope-paper {
+            position: absolute;
+            z-index: 1;
+            top: 12px;
+            left: 50%;
+            width: 80%;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 5px;
+            background: #fff8fb;
+            color: #a72860;
+            font-size: 28px;
+            transform: translateX(-50%);
+            transition: top 0.8s ease;
+        }
+
+        .envelope-seal {
+            position: absolute;
+            top: 57px;
+            left: 50%;
+            z-index: 4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 37px;
+            height: 37px;
+            border-radius: 50%;
+            background: #c92d69;
+            font-size: 20px;
+            transform: translateX(-50%);
+            box-shadow: 0 2px 7px #6a143b50;
+            transition: opacity 0.3s ease;
+        }
+
+        .envelope-caption {
+            display: block;
+            margin-top: 20px;
+            color: #ffd0e1;
+            font-size: 14px;
+        }
+
+        .envelope-button.opening .envelope-flap {
+            transform: rotateX(180deg);
+        }
+
+        .envelope-button.opening .envelope-paper {
+            top: -45px;
+        }
+
+        .envelope-button.opening .envelope-seal {
+            opacity: 0;
+        }
+
+        /* Love letter */
+
+        #letter {
+            display: none;
+            margin-top: 25px;
+            padding: 22px 18px;
+            border-radius: 18px;
+            background: #fff1f6;
+            color: #61213f;
+            text-align: left;
+            line-height: 1.95;
+            animation: letterReveal 1s ease both;
+        }
+
+        #letter h2 {
+            margin-top: 0;
+            color: #bd3269;
+            text-align: center;
+            font-size: 22px;
+        }
+
+        #letter p {
+            white-space: pre-line;
+            font-size: 15px;
+        }
+
+        #letter .signature {
+            color: #bd3269;
+            font-weight: bold;
+            text-align: right;
+        }
+
+        .letter-footer {
+            color: #bd3269;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        /* Floating hearts */
+
+        .floating-heart {
+            position: fixed;
+            bottom: -45px;
+            z-index: 1;
+            pointer-events: none;
+            user-select: none;
+            animation: floatUp linear forwards;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            15% { transform: scale(1.15); }
+            30% { transform: scale(1); }
+            45% { transform: scale(1.1); }
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            15% { opacity: 0.85; }
+            100% {
+                transform: translateY(-115vh) rotate(35deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes appear {
+            from {
+                opacity: 0;
+                transform: translateY(18px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes letterReveal {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.97);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @media (max-width: 380px) {
+            .card {
+                padding: 25px 16px;
+            }
+
+            #letter {
+                padding: 18px 14px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                scroll-behavior: auto !important;
+            }
+
+            .envelope,
+            .envelope-flap,
+            .envelope-paper,
+            .envelope-seal {
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="card">
+
+        <div class="small">A little surprise, made with love</div>
+
+        <div class="main-heart" aria-hidden="true">💗</div>
+
+        <h1>To My Gugu ❤️</h1>
+
+        <div class="date">
+            21 October 2024 · Our Beginning ♾️
+        </div>
+
+        <p class="message">
+            Some dates become special.<br>
+            Some people become unforgettable.<br>
+            And then there is you, Gugu. 💕
+        </p>
+
+        <!-- PASSCODE SCREEN -->
+
+        <section id="lockScreen">
+
+            <div class="hint">
+                <strong>🔐 A Little Secret</strong>
+                Can you remember the day, month, and
+                full year of our special day?
+                <br>
+                Hint: Enter all 8 digits. ❤️
+            </div>
+
+            <form id="passcodeForm">
+                <label for="passcode">Our secret date</label>
+
+                <input
+                    id="passcode"
+                    type="password"
+                    inputmode="numeric"
+                    pattern="[0-9]{8}"
+                    maxlength="8"
+                    placeholder="8-digit passcode"
+                    autocomplete="off"
+                    required
+                    aria-describedby="feedback"
+                >
+
+                <button class="primary-button" type="submit">
+                    Unlock My Love Letter 💌
+                </button>
+            </form>
+
+            <p id="feedback" role="status" aria-live="polite"></p>
+
+        </section>
+
+        <!-- ENVELOPE: SHOWN AFTER THE CORRECT PASSCODE -->
+
+        <section id="envelopeSection" class="hidden">
+
+            <h2>A Little Letter for My Gugu 💗</h2>
+
+            <p class="message">
+                You found the secret, my love.<br>
+                Now open the little gift I made for you. ❤️
+            </p>
+
+            <button
+                type="button"
+                id="envelopeButton"
+                class="envelope-button"
+                aria-label="Open your love letter"
+            >
+                <span class="envelope">
+                    <span class="envelope-paper">For Gugu 💌</span>
+                    <span class="envelope-flap"></span>
+                    <span class="envelope-seal">❤️</span>
+                </span>
+
+                <span class="envelope-caption">
+                    Tap the envelope to open it
+                </span>
+            </button>
+
+        </section>
+
+        <!-- LOVE LETTER: HIDDEN UNTIL THE ENVELOPE IS OPENED -->
+
+        <section id="letter" aria-labelledby="letterTitle">
+
+            <h2 id="letterTitle">
+                To My Gugu, With All My Heart ❤️
+            </h2>
+
+            <p>My dearest Gugu, 💗
+
+On 21 October 2024, a beautiful chapter of our story began. Some dates are just numbers on a calendar, but some become little pieces of forever. For me, this day will always be one of them.
+
+If my heart could write poetry, every verse would somehow find its way to you. If the stars could speak, I think they would tell you how special you are to me.
+
+You are my favourite thought in the quiet moments, the smile that finds me unexpectedly, and the name that makes my heart a little softer.
+
+I made this little website with my own hands because I wanted to give you something more than a message on a screen. Every little heart here carries a simple thought: you matter to me, Gugu. ❤️
+
+I cannot promise that every day will be perfect, but I hope life gives us many more reasons to smile, many more memories to treasure, and many more moments that make us grateful for the story we share.
+
+And if time ever makes this day feel far away, I hope you remember this little corner of the internet and the person who made it just to see you smile.
+
+Happy Anniversary, my Gugu. 🌹
+
+Among all the beautiful things this world holds, I am grateful that our paths crossed. Whatever words I write, one feeling will always remain at the heart of them all:
+
+You are special to me, more than this little letter could ever explain. 💖</p>
+
+            <p class="signature">
+                With all my love,<br>
+                Your favourite person ❤️
+            </p>
+
+            <p class="letter-footer">
+                One special date. A thousand little feelings. ♾️
+            </p>
+
+        </section>
+
+    </main>
+
+    <script>
+        // -----------------------------------------
+        // 1. ELEMENTS AND SECRET PASSCODE
+        // -----------------------------------------
+
+        const correctPasscode = "21102024";
+
+        const form = document.getElementById("passcodeForm");
+        const input = document.getElementById("passcode");
+        const feedback = document.getElementById("feedback");
+        const lockScreen = document.getElementById("lockScreen");
+        const envelopeSection = document.getElementById("envelopeSection");
+        const envelopeButton = document.getElementById("envelopeButton");
+        const letter = document.getElementById("letter");
+
+        let unlocked = false;
+        let envelopeOpened = false;
+
+        // -----------------------------------------
+        // 2. CHECK THE PASSCODE
+        // -----------------------------------------
+
+        form.addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            if (unlocked) return;
+
+            if (input.value === correctPasscode) {
+                unlocked = true;
+
+                feedback.textContent =
+                    "You remembered our special day, Gugu! ❤️";
+
+                lockScreen.classList.add("hidden");
+                envelopeSection.classList.remove("hidden");
+
+                envelopeSection.scrollIntoView({
+                    behavior: "smooth",
+                    block: "nearest"
+                });
+
+                // Celebrate the correct passcode
+                for (let i = 0; i < 20; i++) {
+                    setTimeout(createHeart, i * 100);
+                }
+
+            } else {
+                feedback.textContent =
+                    "Not quite, my love! Try our special date again. 💗";
+
+                input.value = "";
+                input.focus();
+            }
+        });
+
+        // -----------------------------------------
+        // 3. OPEN THE ENVELOPE ON HER CLICK
+        // -----------------------------------------
+
+        envelopeButton.addEventListener("click", function() {
+            if (!unlocked || envelopeOpened) return;
+
+            envelopeOpened = true;
+
+            envelopeButton.classList.add("opening");
+
+            envelopeButton.querySelector(".envelope-caption").textContent =
+                "Opening your little surprise... ❤️";
+
+            // Wait for the envelope animation
+            setTimeout(function() {
+                envelopeSection.classList.add("hidden");
+                letter.style.display = "block";
+
+                letter.scrollIntoView({
+                    behavior: "smooth",
+                    block: "nearest"
+                });
+
+                // A big heart celebration!
+                for (let i = 0; i < 35; i++) {
+                    setTimeout(createHeart, i * 90);
+                }
+            }, 900);
+        });
+
+        // -----------------------------------------
+        // 4. CREATE FLOATING HEARTS
+        // -----------------------------------------
+
+        function createHeart() {
+            const heart = document.createElement("div");
+
+            heart.className = "floating-heart";
+
+            const hearts = ["❤️", "💕", "💗", "💖", "💘", "💞"];
+
+            heart.textContent =
+                hearts[Math.floor(Math.random() * hearts.length)];
+
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.fontSize = (16 + Math.random() * 22) + "px";
+            heart.style.animationDuration = (5 + Math.random() * 4) + "s";
+
+            document.body.appendChild(heart);
+
+            heart.addEventListener("animationend", function() {
+                heart.remove();
+            });
+        }
+
+        // Gentle floating hearts throughout the experience
+        setInterval(createHeart, 650);
+    </script>
+
+</body>
+</html>
